@@ -10,6 +10,13 @@ class PaperBanner extends Component {
         fontNum: 0,
         isMobile: window.innerWidth < 768
     }
+
+    processDate(date) {
+        let a = date.split("T")[0];
+        let b = String(date.split("T")[1]);
+        b = b.split(".")[0];
+        return a + ' ' + b;
+    }
     
     componentDidMount() {
         this.getPaperInfo(this.props.location.pathname.split('/')[2]);
@@ -34,8 +41,9 @@ class PaperBanner extends Component {
 
         this.setState({
             name: post.title, 
-            publishedAt: post.date, 
-            lastChangeTime: post.daTe, 
+            publishedAt: String(post.createdDate), 
+            lastChangeTime: String(post.lastModifyDate), 
+            fontNum: post.fontNum
         });
     }
     
@@ -49,20 +57,20 @@ class PaperBanner extends Component {
                             <p className='paper-banner-content-font'>
                                 <i class="bi bi-calendar" />
                                 &nbsp;
-                                发表时间：{this.state.publishedAt}
+                                发表时间：{this.processDate(this.state.publishedAt)}
                             </p>
                             {this.state.isMobile ? null : (<p className='paper-banner-content-font'>
                                 &emsp;|&emsp;</p>)}
                             <p className='paper-banner-content-font'>
                                 <i className="bi bi-clock" />
                                 &nbsp;
-                                最后更新时间：{this.state.publishedAt}
+                                最后更新时间：{this.state.lastChangeTime}
                             </p>
                             {this.state.isMobile ? null : (<br />)}
                             <p className='paper-banner-content-font font-num'>
                                 <i className="bi bi-file-earmark-font" />
                                 &nbsp;
-                                总字数：
+                                总字数：{this.state.fontNum}
                             </p>
                         </div>
                     </div>

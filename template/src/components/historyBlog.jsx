@@ -20,7 +20,7 @@ class HistoryBlog extends Component {
 						<li key={index}>
 							<div>
 							<Link to={`/posts/${p.slug}`} className='title'>{p.title}</Link>
-							<div className='time'>{p.date?.split("T")[0]}</div>
+							<div className='time'>{p.createdDate?.split("T")[0]}</div>
 							</div>
 						</li>
 						))}

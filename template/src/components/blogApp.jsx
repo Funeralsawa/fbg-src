@@ -10,14 +10,6 @@ import { connect } from "react-redux";
 import pinyin from "pinyin";
 import { useState, useEffect } from "react";
 
-// 高亮
-marked.setOptions({
-	highlight: (code, lang) => {
-		if (lang && hljs.getLanguage(lang)) return hljs.highlight(code, { language: lang }).value;
-		return hljs.highlightAuto(code).value;
-	}
-});
-
 function slugify(text) {
 	if (!text) return "";
 	if (/[\u4e00-\u9fa5]/.test(text)) {
@@ -32,6 +24,22 @@ function slugify(text) {
 		.replace(/^-+/, "")
 		.replace(/-+$/, "");
 }
+
+// marked 配置（只初始化一次）
+const renderer = new marked.Renderer();
+renderer.heading = (token) => {
+	const id = slugify(token.text);
+	return `<h${token.depth} id="${id}">${token.text}</h${token.depth}>`;
+};
+
+// 高亮
+marked.setOptions({
+	renderer,
+	highlight: (code, lang) => {
+		if (lang && hljs.getLanguage(lang)) return hljs.highlight(code, { language: lang }).value;
+		return hljs.highlightAuto(code).value;
+	}
+});
 
 function BlogApp({setToc, setID}) {
 	const { name } = useParams();

@@ -19,7 +19,7 @@ export default class BlogData extends Component {
         </Link>
         <Link className="blog-data-el" to="/posts/all">
           <div className="blog-data-title">分类</div>
-          <div className="blog-data-num">7</div>
+          <div className="blog-data-num">6</div>
         </Link>
       </div>
     );

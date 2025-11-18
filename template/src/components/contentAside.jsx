@@ -21,7 +21,7 @@ class ContentAside extends Component {
                             Follow Me
                         </a>
                         <div className='content-aside-link'>
-                            <a href={site.links.email} target='_blank' title='Email'>
+                            <a href={`mailto:${site.links.email}`} target='_blank' title='Email'>
                                 <i className="bi bi-envelope mail"></i>
                             </a>
                             <a href={site.links.discord} target="_blank" title='discord'>
