@@ -1,0 +1,20 @@
+.typewriter {
+  font-family: monospace;
+  font-size: 24px;
+  white-space: pre;
+  display: inline-block;
+  color: white; /* 可根据页面风格自定义 */
+}
+
+.cursor {
+  display: inline-block;
+  margin: 0;
+  animation: blink 0.8s infinite;
+  color: white;
+  transform: translateX(-30%);
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}

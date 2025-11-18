@@ -1,0 +1,47 @@
+:root {
+    /* 浅色主题 */
+    --bg: #ffffff;
+    --text: #24292e;
+    --card-bg: #f6f8fa;
+    --accent: #0969da;
+    --border: rgba(27, 31, 35, 0.15);
+}
+
+html.dark {
+    /* 深色主题 */
+    --bg: #0d1117;
+    --text: #c9d1d9;
+    --card-bg: #161b22;
+    --accent: #58a6ff;
+    --border: rgba(240, 246, 252, 0.1);
+}
+
+.card-widget {
+    width: 100%;
+    margin-bottom: 7%;
+    display: flex;
+    color: black;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    padding-bottom: 5%;
+    border-radius: 10px;
+    gap: 1vh;
+    background: rgba(0, 0, 0, 0.3); /* 黑色半透明 */
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+}
+
+.info-drawer-content-card-widget {
+    width: 80%;
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    align-items: center;
+    background-color: var(--bg);
+    overflow-x: auto;
+    border-radius: 10px;
+    gap: 1vh;
+    box-shadow: 0 0 1px 1px var(--border);
+}

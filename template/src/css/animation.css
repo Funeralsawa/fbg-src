@@ -1,0 +1,64 @@
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+@keyframes colorFade {
+  from {
+    color: rgb(4, 232, 194);
+  }
+  to {
+    color: #bbd819;
+  }
+}
+
+@keyframes shine {
+  0% {
+    background-position: 100% 0;
+  }
+  100% {
+    background-position: 0 0;
+  }
+}
+
+@keyframes growText {
+  0% {
+    font-size: 2vw;
+  }
+  100% {
+    font-size: 3vw;
+  }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+}
+
+@keyframes floatArrow {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0px) scale(0.8);
+    opacity: 0.5;
+  }
+  50% {
+    transform: translateX(-50%) translateY(-25px) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes typingBounce {
+  0% {
+      opacity: 0;
+      transform: translateY(10px);
+  }
+  100% {
+      opacity: 1;
+      transform: translateY(0);
+  }
+}
+
+@keyframes blinkCursor {
+  0% { opacity: 1; }
+  50% { opacity: 0; }
+  100% { opacity: 1; }
+}

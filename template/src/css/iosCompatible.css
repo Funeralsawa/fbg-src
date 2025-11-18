@@ -1,0 +1,44 @@
+@supports (-webkit-touch-callout: none) {
+    
+    /* body 背景（全局背景） */
+    body, .head {
+        background-attachment: scroll !important; /* iOS Safari 避免 fixed bug */
+    }
+
+    /* body 伪 fixed 背景（iOS Safari） */
+    body::before {
+        content: "";
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("../assets/background.png");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -2;
+        pointer-events: none; /* 避免遮挡点击 */
+    }
+
+    /* .head 伪 fixed 背景（只覆盖 head 区域） */
+    .head::before {
+        content: "";
+        position: absolute; /* 限定在 head 区域，不覆盖 body */
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-image: url("../assets/head.jpg");
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        z-index: -1; /* 放在 head 内容后面 */
+        pointer-events: none; /* 避免遮挡点击 */
+    }
+
+    .aside-navbar-toggle {
+        color: #FFFFFF !important; /* iOS Safari 侧边栏按钮颜色 */
+        background-color: rgba(117, 172, 255, 0.4) !important; /* iOS Safari 侧边栏按钮背景色 */
+    }
+}

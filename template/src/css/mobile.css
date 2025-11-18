@@ -1,0 +1,201 @@
+/* 从这里开始是响应式适配部分 */
+
+@media (max-width: 768px) {
+
+    .head-overray {
+        width: 100vw;
+        height: 100vh;
+    }
+
+    .nav-links {
+        display: none;
+    }
+
+    .subscribe-content, .subscribe-content * {
+        display: none;
+    }
+
+    .drawer-toggle {
+        display: inherit !important;
+    }
+
+    .aside-navbar-toggle {
+        right: -8vw;
+        z-index: 1000;
+        padding: 0 1.5%;
+        transition: right 0.3s linear;
+    }
+
+    .aside-navbar-drawer {
+        width: 65%;
+        height: 40%;
+        right: 12%;
+    }
+
+    .aside-navbar-display {
+        right: 3vw;
+    }
+
+    /* 容器布局变成单列 */
+    .content {
+        flex-direction: column;
+        gap: 3%;
+        width: 100vw;
+    }
+
+    .content-posts {
+        min-width: 100%;
+        margin: 0;
+    }
+
+    /* 侧边栏移动到上面（可选） */
+    .content-aside {
+        order: -1;
+        min-width: 100%;
+        margin-bottom: 5%;
+        margin: 0;
+    }
+
+    /* 头图文字变大，方便手机阅读 */
+    .head-text > .title {
+        font-size: clamp(20px, 7vw, 32px);
+    }
+
+    .head-text > .subtitle {
+        font-size: clamp(16px, 5vw, 24px);
+    }
+
+    /* 导航栏图标和标题变大一点 */
+    .nav-icon {
+        width: 6vw;
+        min-width: 30px;
+    }
+
+    .nav-title {
+        font-size: 4vw;
+    }
+
+    /* 侧边栏头像缩放 */
+    .content-aside-bloginfo > img {
+        width: 30%;
+        min-width: 60px;
+    }
+
+    /* 文字 */
+    .content-aside-bloginfo > p {
+        font-size: 7vw;
+        color: wheat;
+    }
+
+    /* 列表字体变大 */
+    .content-aside-newest-essay > div > ul li .title {
+        font-size: clamp(14px, 4vw, 18px);
+        color: wheat;
+    }
+
+    /* 博客数据（阅读数、点赞等）字体变大 */
+    .blog-data {
+        gap: 10%;
+        font-size: 3.5vw;
+    }
+
+    .content-aside-announce {
+        color: wheat;
+    }
+    
+    .content-aside-announce > p {
+        color: #FFFFFF;
+    }
+
+    /* 卡片宽度适应手机 */
+    .card-widget {
+        width: 100%;
+        padding: 5% 3%;
+    }
+
+    .allPosts {
+        margin-top: 20%;
+    }
+
+    .allPosts-Container {
+        width: 95%;
+    }
+
+    .paper-banner-content-font {
+        display: block;
+    }
+
+    .font-num {
+        display: inline;
+        text-align: unset;
+    }
+
+    .preview-container {
+        width: 90%;
+    }
+
+    .preview-card {
+        max-height: 15vh;
+    }
+
+    .preview-content {
+        height: 3em;
+        overflow: hidden;
+        margin: 0;
+    }
+
+    .blog-content-overray {
+        background-image: url("../assets/mb.png");
+        background-position: bottom;
+    }
+
+    .blog-content {
+        width: 95%;
+        flex-direction: column;
+    }
+
+    /* 页脚字体 */
+    .footer {
+        font-size: 3vw;
+        height: auto;
+        padding: 10px 0;
+    }
+
+    .categoriesList {
+        width: 30% !important;
+        margin: 0 auto;
+        transform: translate(35%, 5%) !important;
+    }
+
+    .categoriesList-item {
+        font-size: 4vw;
+    }
+}
+
+@media (max-width: 480px) {
+    /* 更小屏幕的进一步优化 */
+    .head-text > .title {
+        font-size: clamp(18px, 8vw, 28px);
+    }
+
+    .head-text > .subtitle {
+        font-size: clamp(14px, 6vw, 20px);
+    }
+
+    .nav-icon {
+        width: 8vw;
+        min-width: 25px;
+    }
+
+    .nav-title {
+        font-size: 5vw;
+    }
+
+    .content-aside-bloginfo > img {
+        width: 35%;
+    }
+
+    .content-aside-newest-essay > div > ul li .title {
+        font-size: clamp(13px, 4.5vw, 16px);
+    }
+}

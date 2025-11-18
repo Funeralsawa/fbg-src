@@ -1,0 +1,14 @@
+{
+  "name": "fbg",
+  "version": "1.0.1",
+  "type": "module",
+  "bin": { "fbg": "./bin/cli.js" },
+  "dependencies": {
+    "chokidar": "^3.6.0",
+    "commander": "^11.1.0",
+    "execa": "^9.3.0",
+    "fs-extra": "^11.2.0",
+    "gray-matter": "^4.0.3",
+    "yaml": "^2.5.0"
+  }
+}
