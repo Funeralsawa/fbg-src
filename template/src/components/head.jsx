@@ -1,29 +1,27 @@
-import React, { Component } from 'react';
+import React, { useState, useRef, useCallback, useEffect } from 'react';
 import TypeWriter from './typeWriter';
 import site from 'fbg-generated';
 
-class Head extends Component {
-    state = {
-        change: false
-    }
+const Head = () => {
+    const words = site.ui.typeWriterWords || ["welcome to fbg!"];
 
-    ref = React.createRef();
+    const [textIndex, setTextIndex] = useState(0);
+    const [currentText, setCurrentText] = useState(words[0]);
 
-    texts = {
-        text1: `${site.ui.typeWriterWords[0]}`,
-        text2: `${site.ui.typeWriterWords[1]}`,
-    }
+    const textNum = site.ui.typeWriterWords.length;
 
-    onTypingEnd = () => {
-        this.setState((preState) => {
-            return {
-                change: !preState.change
-            }
-        })
-    }
+    const ref = useRef(null);
 
-    handleClick = () => {
-        const el = this.ref.current;
+    const onTypingEnd = useCallback(() => {
+        setTextIndex((prevIndex) => (prevIndex + 1) % textNum);
+    }, [words.length]);
+
+    useEffect(() => {
+        setCurrentText(site.ui.typeWriterWords[textIndex]);
+    }, [textIndex]);
+
+    const handleClick = () => {
+        const el = ref.current;
         const rect = el.getBoundingClientRect();
         const offset = rect.bottom;
 
@@ -31,40 +29,38 @@ class Head extends Component {
             top: offset,
             behavior: 'smooth',
         });
-    }
+    };
 
-    render() { 
-        const { change } = this.state;
-        const currentText = change ? this.texts.text2 : this.texts.text1;
+    return (
+        <React.Fragment>
+            <div className="head" ref={ref}>
+                <div className='head-overray'></div>
 
-        return (
-            <React.Fragment>
-                <div className="head" ref={this.ref}>
-                    <div className='head-overray'></div>
-                    <div className='head-text'>
-                        <div className="title">
-                            {`${site.site.title}`.split("").map((char, index) => (
-                                <span key={index} style={{ animationDelay: `${index * 0.1}s` }}>
-                                    {char}
-                                </span>
-                            ))}
-                        </div>
-                        <div className="subtitle">
-                            <TypeWriter
-                                texts={[currentText]}
-                                speed={200}
-                                pause={1500}
-                                onTypingEnd={this.onTypingEnd}
-                            />
-                        </div>
+                <div className='head-text'>
+                    <div className="title">
+                        {`${site.site.title}`.split("").map((char, index) => (
+                            <span key={index} style={{ animationDelay: `${index * 0.1}s` }}>
+                                {char}
+                            </span>
+                        ))}
                     </div>
-                    <p className='float-arrow' onClick={this.handleClick}>
-                        <i className="bi bi-caret-down"></i>
-                    </p>
+
+                    <div className="subtitle">
+                        <TypeWriter
+                            texts={[currentText]}
+                            speed={200}
+                            pause={1500}
+                            onTypingEnd={onTypingEnd}
+                        />
+                    </div>
                 </div>
-            </React.Fragment>
-        );
-    }
-}
- 
+
+                <p className='float-arrow' onClick={handleClick}>
+                    <i className="bi bi-caret-down"></i>
+                </p>
+            </div>
+        </React.Fragment>
+    );
+};
+
 export default Head;

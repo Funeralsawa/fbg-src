@@ -8,6 +8,8 @@ import BlogApp from './blogApp';
 import AsideNavbar from './asideNavbar';
 import PaperBanner from './paperBanner';
 import Error404 from './404';
+import Search from './search';
+import ClickAnime from './clickAnime';
 import {Routes, Route, useLocation, Navigate} from "react-router-dom";
 
 class Site extends Component {
@@ -27,7 +29,7 @@ class Site extends Component {
     }
 
     updateBackground = (pathname) => {
-        if (pathname.startsWith("/posts/") && pathname !== "/posts/all") {
+        if (pathname.startsWith("/posts/") && pathname !== "/posts/all" && pathname !== "/posts/search") {
             document.body.style.backgroundImage = "";
         }
         else {
@@ -38,6 +40,7 @@ class Site extends Component {
     render() { 
         return (
             <React.Fragment>
+                <ClickAnime />
                 <Navbar />
                 <Routes>
                     <Route path="/" element={(
@@ -58,6 +61,7 @@ class Site extends Component {
                             </div>
                         </>
                     )} />
+                    <Route path="/posts/search" element={<Search />} />
                     <Route path="/404" element={<Error404 />}></Route>
                     <Route path="*" element={<Navigate replace to="/404" />}></Route>
                 </Routes>

@@ -1,6 +1,6 @@
 {
   "name": "fbg",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "type": "module",
   "bin": { "fbg": "./bin/cli.js" },
   "dependencies": {

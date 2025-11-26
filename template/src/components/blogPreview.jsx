@@ -16,18 +16,22 @@ export default function BlogPreview(props) {
         "others": "其他"
     };
 	useEffect(() => {
-		const {num, tag} = props;
+		const {num, tag, POSTS} = props;
 		let filteredPosts = [];
-		if(tag != "all") {
-            for(let post of posts) {
-                for(let t of post.tags) {
-                    if(t == reverseTags[tag]) {
-                        filteredPosts.push(post);
+		if(!POSTS) {
+            if(tag != "all") {
+                for(let post of posts) {
+                    for(let t of post.tags) {
+                        if(t == reverseTags[tag]) {
+                            filteredPosts.push(post);
+                        }
                     }
                 }
+            } else {
+                filteredPosts = posts;
             }
         } else {
-            filteredPosts = posts;
+            filteredPosts = POSTS;
         }
 		setPreviews(filteredPosts);
 	}, [location])

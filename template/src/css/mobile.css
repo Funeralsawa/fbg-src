@@ -170,6 +170,14 @@
     .categoriesList-item {
         font-size: 4vw;
     }
+
+    .nav-bar-search-input {
+        text-align: center;
+    }
+
+    .nav-bar-search-input:focus {
+        border: 2px solid rgba(119, 211, 237, 0.8);
+    }
 }
 
 @media (max-width: 480px) {

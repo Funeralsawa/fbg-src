@@ -1,105 +1,139 @@
-import React, { Component } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import InfoDrawer from './infoDrawer';
+import { useLocation } from 'react-router-dom';
 import site from 'fbg-generated';
 
-class Navbar extends Component {
-    state = {
-        hidden: true,
-        transparent: true,
-        open: false,
-    } 
+const Navbar = () => {
+    const [hidden, setHidden] = useState(true);
+    const [transparent, setTransparent] = useState(true);
+    const [open, setOpen] = useState(false);
 
-    lastScrollY = 0;
-    navRef = React.createRef();
+    const lastScrollY = useRef(0);
+    const navRef = useRef(null);
+    const homePageRef = useRef(null);
+    const searchInputRef = useRef(null);
+    const navBarSearchSvgRef = useRef(null);
+    const infoDrawerRef = useRef(null);
+    
+    const location = useLocation();
 
-    handleScroll = () => {
-        const currentScrollY = window.scrollY;
+    useEffect(() => {
+        const handleScroll = () => {
+            const currentScrollY = window.scrollY;
+            if (currentScrollY > lastScrollY.current) setHidden(true);
+            else setHidden(false);
+            if (currentScrollY <= 0) {
+                setTransparent(true);
+                if(location.pathname === "/") {
+                    homePageRef.current.style.color = "#c9d1d9";
+                    navBarSearchSvgRef.current.style.color = "#c9d1d9";
+                    infoDrawerRef.current.style.color = "#c9d1d9";
+                }
+                
+            } else {
+                setTransparent(false);
+                homePageRef.current.style.color = "var(--text)";
+                navBarSearchSvgRef.current.style.color = "var(--text)";
+                infoDrawerRef.current.style.color = "var(--text)";
+            }
 
-        if (currentScrollY > this.lastScrollY) {
-            this.setState({ hidden: true });
-        } else {
-            this.setState({ hidden: false });
-        }
+            lastScrollY.current = currentScrollY;
+        };
 
-        if (currentScrollY <= 0) {
-            this.setState({ transparent: true });
-        } else {
-            this.setState({ transparent: false });
-        }
+        window.addEventListener('scroll', handleScroll);
 
-        this.lastScrollY = currentScrollY;
-    }
+        return () => {
+            window.removeEventListener('scroll', handleScroll);
+        };
+    }, [location]);
 
-    componentDidMount() {
-        window.addEventListener('scroll', this.handleScroll);
-        setTimeout(() => {
-            this.navRef.current.classList.add("nav-begin");
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            if (navRef.current) {
+                navRef.current.classList.add("nav-begin");
+                if(location.pathname === "/") {
+                    homePageRef.current.style.color = "#c9d1d9";
+                    navBarSearchSvgRef.current.style.color = "#c9d1d9";
+                    infoDrawerRef.current.style.color = "#c9d1d9";
+                }
+            }
         }, 100);
-        
-    }
 
-    componentWillUnmount() {
-        window.removeEventListener('scroll', this.handleScroll);
-    }
+        return () => {
+            clearTimeout(timer);
+            homePageRef.current.style.color = "var(--text)";
+            navBarSearchSvgRef.current.style.color = "var(--text)";
+            infoDrawerRef.current.style.color = "var(--text)";
+        };
+    }, []);
 
-    onClick = () => {
+    const onClick = () => {
         window.location.href = "/";
-    }
+    };
 
-    handleSubscribeClick = () => {
-        const subscribeContent = document.getElementsByClassName("subscribe-content")[0];
-        if(subscribeContent.style.transform === "translateX(120%)") {
-            subscribeContent.style.transform = "translateX(0%)";
-        }
-        else { 
-            subscribeContent.style.transform = "translateX(120%)";
-        }
-    }
-
-    setOpen = (flag) => {
-        this.setState({
-            open: flag
-        })
-    }
-
-    style1 = {
+    const style1 = {
         userSelect: "none",
         cursor: "pointer",
         marginLeft: "1%"
+    };
+
+    const handleSearchKeyDown = (e) => {
+        if(e.key === 'Enter') {
+            const keyword = searchInputRef.current.value.trim();
+            if(keyword.length > 0) {
+                window.location.href = `/posts/search?keyword=${encodeURIComponent(keyword)}`;
+            }
+        }
     }
 
-    render() { 
-        return (
-            <React.Fragment>
-                <nav className={`navbar navbar-expand-lg ${this.state.hidden ? 'nav-hidden' : 'nav-appear'}
-                    ${this.state.transparent ? 'nav-transparent' : ''}`} 
-                    ref={this.navRef}>
-                    <div className="container-fluid" style={{color: "white"}}>
-                        <div onClick={this.onClick} className='navbar-brand' style={this.style1}>
-                            <img className="nav-icon" src={`/assets/${site.author.avatar}`} alt="icon" draggable="False" />
-                            <div className='nav-title'>{site.author.name}'s blog</div>
-                        </div>
-                        <div className="nav-links">
-                            <a href="/">
-                                <i className="bi bi-house-door-fill"></i>
-                                &nbsp;
-                                首页
-                            </a>
-                        </div>
-                        <div className="drawer-toggle" onClick={() => this.setOpen(true)}>☰</div>
+    return (
+        <React.Fragment>
+            <nav
+                className={`navbar navbar-expand-lg ${hidden ? 'nav-hidden' : 'nav-appear'} 
+                    ${transparent ? 'nav-transparent' : ''}`}
+                ref={navRef}
+            >
+                <div className="container-fluid" style={{ color: "white" }}>
+                    <div onClick={onClick} className='navbar-brand' style={style1}>
+                        <img
+                            className="nav-icon"
+                            src={`/assets/${site.author.avatar}`}
+                            alt="icon"
+                            draggable="false"
+                        />
+                        <div className='nav-title'>{site.author.name}'s blog</div>
                     </div>
-                    <div className={`info-drawer ${this.state.open ? 'open' : ''}`}>
-                        <div className="drawer-content">
-                            <InfoDrawer />
+
+                    <div className="nav-links">
+                        <div className="nav-bar-search">
+                            <i className="bi bi-search" ref={navBarSearchSvgRef} />
+                            <input type="text" ref={searchInputRef} 
+                            className="nav-bar-search-input" 
+                            placeholder="标题/作者/年份/概要"
+                            onKeyDown={(e) => handleSearchKeyDown(e)}/>
                         </div>
+                        <a href="/" ref={homePageRef} >
+                            <i className="bi bi-house-door-fill"></i>
+                            &nbsp; 首页
+                        </a>
                     </div>
-                    <div className={`info-drawer-overray ${this.state.open ? 'open' : ''}`}
-                            onClick={() => this.setOpen(false)}>
+
+                    <div ref={infoDrawerRef} className="drawer-toggle" onClick={() => setOpen(true)}>☰</div>
+                </div>
+
+                <div className={`info-drawer ${open ? 'open' : ''}`}>
+                    <div className="drawer-content">
+                        <InfoDrawer />
                     </div>
-                </nav>
-            </React.Fragment>
-        );
-    }
-}
- 
+                </div>
+
+                <div
+                    className={`info-drawer-overray ${open ? 'open' : ''}`}
+                    onClick={() => setOpen(false)}
+                ></div>
+            </nav>
+        </React.Fragment>
+    );
+};
+
 export default Navbar;
