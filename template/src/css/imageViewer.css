@@ -1,0 +1,61 @@
+.iv-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    animation: iv-fade 0.25s ease;
+    z-index: 9999;
+}
+
+@keyframes iv-fade {
+    from { background: rgba(0,0,0,0); }
+    to { background: rgba(0,0,0,0.8); }
+}
+
+.iv-container {
+    max-width: 90vw;
+    max-height: 90vh;
+    position: relative;
+    animation: iv-scale 0.25s ease;
+}
+
+@keyframes iv-scale {
+    from { transform: scale(0.8); opacity: 0.3; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+.iv-img {
+    max-width: 90vw;
+    max-height: 90vh;
+    cursor: grab;
+    user-select: none;
+    transition: transform 0.05s linear;
+}
+
+.iv-img:active { cursor: grabbing; }
+
+.iv-close,
+.iv-left,
+.iv-right {
+    position: absolute;
+    background: white;
+    color: black;
+    border: none;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    font-size: 24px;
+    cursor: pointer;
+    opacity: 0.8;
+}
+
+.iv-close { top: -15px; right: -15px; }
+.iv-left { left: -50px; top: 50%; transform: translateY(-50%); }
+.iv-right { right: -50px; top: 50%; transform: translateY(-50%); }
+
+@media (max-width: 768px) {
+    .iv-left { left: 10px; }
+    .iv-right { right: 10px; }
+}

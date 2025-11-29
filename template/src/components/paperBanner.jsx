@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import site from 'fbg-generated';
 import { useLocation, useNavigate } from 'react-router-dom';
 
@@ -19,19 +19,13 @@ function PaperBanner() {
     const [fontNum, setFontNum] = useState(0);
     const [fontTags, setFontTags] = useState([]);
 
-    useEffect(() => {
-        const handleResize = () => setIsMobile(window.innerWidth < 768);
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    const paperBannerRef = useRef(null);
 
     const getPaperInfo = () => {
         const post = site.posts.find(p => `/posts/${p.slug}` === location.pathname);
 
         if (!post) {
-            setTimeout(() => {
-                navigate("/404", { replace: true });
-            });
+            navigate("/404", { replace: true });
             return;
         }
 
@@ -47,8 +41,13 @@ function PaperBanner() {
         getPaperInfo();
     }, [location.pathname]); // 路径发生改变就重新执行
 
+    useEffect(() => {
+        const nav = document.getElementsByClassName("navbar")[0];
+        paperBannerRef.current.style.marginTop = `${nav.offsetHeight}px`;
+    }, [window.innerWidth < 768]);
+
     return (
-        <div className="paper-banner">
+        <div className="paper-banner" ref={paperBannerRef}>
             <div className="paper-banner-content">
                 <h1 align='center'>{name}</h1>
                 <div className="paper-info">

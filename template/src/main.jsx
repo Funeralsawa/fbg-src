@@ -10,7 +10,8 @@ import SiteWrapper from './components/site.jsx'
 import "bootstrap/dist/css/bootstrap.min.css"
 import "bootstrap/dist/js/bootstrap.min.js"
 import "bootstrap-icons/font/bootstrap-icons.min.css"
-import { BrowserRouter, HashRouter, useLocation } from 'react-router-dom'
+import "./css/imageViewer.css"
+import { BrowserRouter, useLocation } from 'react-router-dom'
 import { Provider } from 'react-redux'
 import store from './redux/store.js'
 
