@@ -5,9 +5,6 @@ import path from 'path'
 import fs from 'fs'
 import { createHtmlPlugin } from 'vite-plugin-html'
 
-// -------------------------------
-// fbg 模板配置（增强版）
-// -------------------------------
 export default defineConfig(() => {
   // CLI 注入的环境变量，指向用户目录下的 .fbg/generated/
   const generatedDir = process.env.FBG_GENERATED

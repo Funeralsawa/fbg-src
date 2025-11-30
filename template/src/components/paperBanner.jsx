@@ -20,6 +20,7 @@ function PaperBanner() {
     const [fontTags, setFontTags] = useState([]);
 
     const paperBannerRef = useRef(null);
+    const paperBannerContentRef = useRef(null);
 
     const getPaperInfo = () => {
         const post = site.posts.find(p => `/posts/${p.slug}` === location.pathname);
@@ -43,12 +44,13 @@ function PaperBanner() {
 
     useEffect(() => {
         const nav = document.getElementsByClassName("navbar")[0];
-        paperBannerRef.current.style.marginTop = `${nav.offsetHeight}px`;
+        paperBannerRef.current.style.offsetHeight = `cal(${nav.offsetHeight}px + 20vh)`;
+        paperBannerContentRef.current.style.marginTop = `${nav.offsetHeight + 10}px`;
     }, [window.innerWidth < 768]);
 
     return (
         <div className="paper-banner" ref={paperBannerRef}>
-            <div className="paper-banner-content">
+            <div className="paper-banner-content" ref={paperBannerContentRef}>
                 <h1 align='center'>{name}</h1>
                 <div className="paper-info">
                     <div className="paper-info-left">

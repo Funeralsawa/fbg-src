@@ -121,6 +121,10 @@
         width: 95%;
     }
 
+    .paper-banner {
+        height: 20vh;
+    }
+
     .paper-banner-content-font {
         display: block;
     }
@@ -150,7 +154,7 @@
     }
 
     .blog-content-overray {
-        background-image: url("../assets/mb.png");
+        background-image: var(--bg-postImage-mobile);
         background-position: bottom;
     }
 

@@ -51,15 +51,16 @@ class Site extends Component {
                     )} />
                     <Route path="/posts/all" element={<AllPosts />} />
                     <Route path="/posts/:name" element={(
-                        <>
+                        <div className="blog-content-root">
+                            <div className='blog-content-overray'></div>
+                            <PaperBanner />
                             <div className="blog-content-container">
-                                <PaperBanner />
                                 <div className='blog-content'>
                                     <BlogApp />
                                     <AsideNavbar />
                                 </div>
                             </div>
-                        </>
+                        </div>
                     )} />
                     <Route path="/posts/search" element={<Search />} />
                     <Route path="/404" element={<Error404 />}></Route>

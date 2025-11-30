@@ -44,7 +44,7 @@ class BlogToc extends Component {
                             href={`#${id}`}
                             onClick={(e) => this.handleTOCClick(e, id)}
                             style={{
-                            color: activeId === id ? "#0366d6" : "#333",
+                            color: activeId === id ? "#0366d6" : "var(--text)",
                             textDecoration: "none",
                             cursor: "pointer",
                             }}
